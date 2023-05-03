@@ -10,15 +10,13 @@ const pokemonStore = usePokemonStore();
 const showSearch = ref(false);
 const showType = ref(false);
 const showTypeList = ref(false);
-const selectedType = ref(null);
 
 const handleSearch = (e) => {
   pokemonStore.searchQuery = e.target.value;
 };
 
 const handleSelectedType = (type) => {
-  if (selectedType.value === type) selectedType.value = null;
-  else selectedType.value = type;
+  pokemonStore.selectType(type);
 };
 
 onMounted(() => {
@@ -64,7 +62,7 @@ onMounted(() => {
             <button @click="showType = !showType">
               <em
                 class="bx bx-filter-alt text-2xl transition-colors hover:text-sky-500"
-                :class="selectedType ? 'text-sky-500' : ''"
+                :class="pokemonStore.selectedType ? 'text-sky-500' : ''"
               ></em>
             </button>
             <div
@@ -72,10 +70,16 @@ onMounted(() => {
               @click="showTypeList = !showTypeList"
               class="py-2 px-4 rounded-lg flex items-center relative justify-between min-w-[200px] cursor-pointer"
             >
-              <label class="capitalize text-xl" :class="selectedType ? 'text-sky-500' : ''">
-                {{ selectedType ? selectedType : 'Filter type' }}
+              <label
+                class="capitalize text-xl"
+                :class="pokemonStore.selectedType ? 'text-sky-500' : ''"
+              >
+                {{ pokemonStore.selectedType ? pokemonStore.selectedType : 'Filter type' }}
               </label>
-              <em class="bx bxs-chevron-down" :class="selectedType ? 'text-sky-500' : ''"></em>
+              <em
+                class="bx bxs-chevron-down"
+                :class="pokemonStore.selectedType ? 'text-sky-500' : ''"
+              ></em>
 
               <ol
                 class="absolute transition-all bottom-16 max-h-96 overflow-y-auto left-0 w-full shadow-lg rounded-lg bg-white"
@@ -86,7 +90,7 @@ onMounted(() => {
                   :key="idx"
                   @click="handleSelectedType(type)"
                   class="py-2 px-4 hover:bg-gray-100 transition-colors capitalize"
-                  :class="selectedType === type ? 'bg-gray-100' : ''"
+                  :class="pokemonStore.selectedType === type ? 'bg-gray-100' : ''"
                 >
                   {{ type }}
                 </li>

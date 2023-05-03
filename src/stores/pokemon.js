@@ -9,12 +9,15 @@ export const usePokemonStore = defineStore('pokemon', () => {
   const types = ref([]);
   const offset = ref(0);
   const currentDetail = ref(null);
+  const selectedType = ref('');
   const searchQuery = ref('');
   const isLoading = ref(false);
 
   const filteredPokemonList = computed(() => {
     return pokemonList.value.filter((pokemon) =>
-      pokemon.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+      selectedType.value
+        ? pokemon?.detail?.types.some(({ type }) => type.name === selectedType.value)
+        : pokemon.name.toLowerCase().includes(searchQuery.value.toLowerCase())
     );
   });
 
@@ -71,6 +74,11 @@ export const usePokemonStore = defineStore('pokemon', () => {
     favorites.value = currentFavorites ? JSON.parse(currentFavorites) : [];
   }
 
+  function selectType(type) {
+    if (selectedType.value === type) selectedType.value = '';
+    else selectedType.value = type;
+  }
+
   function clearDetail() {
     currentDetail.value = null;
   }
@@ -85,6 +93,7 @@ export const usePokemonStore = defineStore('pokemon', () => {
     favorites,
     filteredPokemonList,
     currentDetail,
+    selectedType,
     searchQuery,
     types,
     isLoading,
@@ -92,6 +101,7 @@ export const usePokemonStore = defineStore('pokemon', () => {
     getTypeList,
     getPokemonDetail,
     getFavorites,
+    selectType,
     clearState,
     clearDetail
   };
