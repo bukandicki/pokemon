@@ -2,7 +2,6 @@
 import { onUnmounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { usePokemonStore } from '@/stores';
-import Label from '@/components/Label/Label.component.vue';
 
 const route = useRoute();
 const pokemonStore = usePokemonStore();
@@ -27,9 +26,9 @@ onUnmounted(() => {
       <div class="flex flex-col items-center">
         <h1 class="text-center text-6xl capitalize font-bold m-4">{{ detail.name }}</h1>
         <div class="flex space-x-2">
-          <Label class="w-fit" v-for="(type, idx) in detail.types" :key="idx">
+          <jublia-label class="w-fit" v-for="(type, idx) in detail.types" :key="idx">
             {{ type.type.name }}
-          </Label>
+          </jublia-label>
         </div>
       </div>
     </section>
