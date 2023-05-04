@@ -37,7 +37,7 @@ onUnmounted(() => {
           :isActive="isFavorite"
           size="text-4xl"
           class="mt-4"
-          @click="addToFavorite($event, pokemonStore, { detail })"
+          @click="addToFavorite($event, pokemonStore, { name: detail.name, detail })"
         />
       </div>
     </section>
