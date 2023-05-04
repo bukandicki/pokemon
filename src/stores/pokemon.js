@@ -31,6 +31,8 @@ export const usePokemonStore = defineStore('pokemon', () => {
 
       pokemonList.value = [...pokemonList.value, ...data.results];
 
+      isLoading.value = false;
+
       for (const pokemon of pokemonList.value) {
         if (pokemon.detail) continue;
 
@@ -41,8 +43,6 @@ export const usePokemonStore = defineStore('pokemon', () => {
       offset.value += 30;
     } catch (error) {
       throw new Error(error);
-    } finally {
-      isLoading.value = false;
     }
   }
 
