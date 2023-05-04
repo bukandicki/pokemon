@@ -1,5 +1,5 @@
-import { clientApi } from './clientApi'
+import { clientApi } from './clientApi';
 
 export const installAxiosConfig = (app) => {
-  app.provide('axios', clientApi)
-}
+  app.provide('axios', clientApi);
+};
