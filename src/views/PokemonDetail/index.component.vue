@@ -1,19 +1,21 @@
 <script setup>
-import { onUnmounted, ref, watch } from 'vue';
+import { onUnmounted, ref, watchEffect, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { usePokemonStore } from '@/stores';
+import { addToFavorite } from '@/lib/utils';
 
 const route = useRoute();
 const pokemonStore = usePokemonStore();
-
 const detail = ref(null);
 
 pokemonStore.getPokemonDetail(route.params.name);
+pokemonStore.getFavorites();
 
-watch(
-  () => pokemonStore.currentDetail,
-  () => (detail.value = pokemonStore.currentDetail)
-);
+watchEffect(() => (detail.value = pokemonStore.currentDetail));
+
+const isFavorite = computed(() => {
+  return detail.value && pokemonStore.favorites.some((fav) => fav.detail.id === detail.value.id);
+});
 
 onUnmounted(() => {
   pokemonStore.clearDetail();
@@ -30,6 +32,13 @@ onUnmounted(() => {
             {{ type.type.name }}
           </jublia-label>
         </div>
+
+        <jublia-like
+          :isActive="isFavorite"
+          size="text-4xl"
+          class="mt-4"
+          @click="addToFavorite($event, pokemonStore, { detail })"
+        />
       </div>
     </section>
 
