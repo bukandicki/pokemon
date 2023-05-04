@@ -115,3 +115,17 @@ We use pinia for the state management. All our data state stored inside `src/sto
 in your template just simple import like this
 
     import { useMyStore } from '@/stores';
+
+## Note
+
+### Limitation
+
+There are some limitation issues about the app (please correct me if I’m wrong)
+
+##### API
+
+The Pokemon API does not provide filtration like type or name for the listing
+
+##### Favorite Feature
+
+Currently, the favorite feature stores the data with an object instead of an id inside local storage, because there’s no endpoint to store the favorite list
