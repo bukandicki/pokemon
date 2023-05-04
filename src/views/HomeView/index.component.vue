@@ -6,11 +6,18 @@ const pokemonStore = usePokemonStore();
 
 const observer = ref(null);
 
-if (!pokemonStore.filteredPokemonList.length) pokemonStore.getPokemonList();
-
 onMounted(() => {
+  if (!pokemonStore.filteredPokemonList.length) pokemonStore.getPokemonList();
+
   const handleObserver = (entries) => {
-    if (!(entries[0].isIntersecting && !pokemonStore.isLoading && !pokemonStore.searchQuery)) {
+    if (
+      !(
+        entries[0].isIntersecting &&
+        !pokemonStore.isLoading &&
+        !pokemonStore.searchQuery &&
+        pokemonStore.filteredPokemonList.length >= 30
+      )
+    ) {
       return;
     }
 
@@ -36,7 +43,7 @@ onUnmounted(() => {
 
       <div
         class="h-screen w-full flex justify-center items-center"
-        v-if="pokemonStore.searchQuery && !pokemonStore.filteredPokemonList.length"
+        v-if="!pokemonStore.isLoading && !pokemonStore.filteredPokemonList.length"
       >
         <h2 class="text-3xl font-bold text-gray-900">Pokemon not found</h2>
       </div>
