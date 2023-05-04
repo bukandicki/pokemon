@@ -1,6 +1,7 @@
 <script setup>
 import { usePokemonStore } from '@/stores';
 import { computed, onMounted } from 'vue';
+import { addToFavorite } from '@/lib/utils';
 
 const props = defineProps({ pokemon: Object });
 
@@ -26,24 +27,6 @@ const isFavorite = computed(() => {
   );
 });
 
-const addToFavorite = (e) => {
-  e.preventDefault();
-
-  pokemonStore.getFavorites();
-
-  const isExist = pokemonStore.favorites.some(
-    ({ detail }) => detail.id === props?.pokemon?.detail?.id
-  );
-  const filteredFavorites = pokemonStore.favorites.filter(
-    ({ detail }) => detail.id !== props?.pokemon?.detail?.id
-  );
-
-  if (isExist) pokemonStore.favorites = filteredFavorites;
-  else pokemonStore.favorites = [...pokemonStore.favorites, props?.pokemon];
-
-  localStorage.setItem('favorites', JSON.stringify(pokemonStore.favorites));
-};
-
 onMounted(() => {
   pokemonStore.getFavorites();
 });
@@ -58,14 +41,11 @@ onMounted(() => {
       </jublia-label>
     </div>
 
-    <button
+    <jublia-like
+      :isActive="isFavorite"
+      @click="addToFavorite($event, pokemonStore, pokemon)"
       class="absolute z-10 top-3 right-3"
-      :class="isFavorite ? '' : 'transition-opacity opacity-0 group-hover:opacity-100'"
-      @click="addToFavorite"
-    >
-      <em class="bx bxs-heart text-2xl text-red-500" v-if="isFavorite"></em>
-      <em class="bx bx-heart text-2xl transition-colors hover:text-red-500" v-else></em>
-    </button>
+    />
 
     <figure>
       <div class="w-24 h-24 bg-gray-100 mx-auto" v-if="!pokemon.detail"></div>
