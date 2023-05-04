@@ -33,9 +33,9 @@ onUnmounted(() => {
       </div>
     </section>
 
-    <section class="m-10 border-l-8 p-8 pt-2 border-sky-500">
+    <section class="m-10 lg:border-l-8 lg:p-8 md:pt-2 lg:border-sky-500">
       <h2 class="text-2xl capitalize font-bold mb-10 text-sky-500">Information</h2>
-      <div class="grid grid-cols-3 w-fit gap-14">
+      <div class="grid max-md:mx-auto md:grid-cols-3 w-fit gap-14">
         <div class="text-center">
           <label class="block text-xl text-gray-400 uppercase font-bold"> Experiences </label>
           <span class="font-bold text-4xl">{{ detail.base_experience }}</span>
@@ -51,11 +51,11 @@ onUnmounted(() => {
       </div>
     </section>
 
-    <section class="m-10 border-l-8 p-8 pt-2 border-sky-500">
+    <section class="m-10 lg:border-l-8 lg:p-8 md:pt-2 lg:border-sky-500">
       <h2 class="text-2xl capitalize font-bold mb-10 text-sky-500">Stats</h2>
-      <div class="grid grid-flow-col gap-14">
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 2xl:grid-flow-col gap-14">
         <div v-for="(stat, idx) in detail.stats" :key="idx" class="text-center">
-          <label class="block text-xl text-gray-400 uppercase font-bold">
+          <label class="block 2xl:text-xl text-gray-400 uppercase font-bold">
             {{ stat.stat.name }}
           </label>
           <div>
@@ -66,7 +66,7 @@ onUnmounted(() => {
       </div>
     </section>
 
-    <section class="m-10 border-l-8 p-8 pt-2 border-sky-500">
+    <section class="m-10 lg:border-l-8 lg:p-8 md:pt-2 lg:border-sky-500">
       <h2 class="text-2xl capitalize font-bold mb-10 text-sky-500">Abilities</h2>
       <div class="flex flex-wrap gap-10">
         <div v-for="(ability, idx) in detail.abilities" :key="idx" class="text-center">
@@ -79,7 +79,7 @@ onUnmounted(() => {
       </div>
     </section>
 
-    <section class="m-10 border-l-8 p-8 pt-2 border-sky-500">
+    <section class="m-10 lg:border-l-8 lg:p-8 md:pt-2 lg:border-sky-500">
       <h2 class="text-2xl capitalize font-bold mb-10 text-sky-500">Moves</h2>
       <div class="flex flex-wrap gap-10">
         <div v-for="(move, idx) in detail.moves" :key="idx" class="text-center">
