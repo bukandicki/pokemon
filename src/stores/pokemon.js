@@ -14,11 +14,13 @@ export const usePokemonStore = defineStore('pokemon', () => {
   const isLoading = ref(false);
 
   const filteredPokemonList = computed(() => {
-    return pokemonList.value.filter((pokemon) =>
-      selectedType.value
-        ? pokemon?.detail?.types.some(({ type }) => type.name === selectedType.value)
-        : pokemon.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-    );
+    return selectedType.value || searchQuery.value
+      ? pokemonList.value.filter(
+          (pokemon) =>
+            pokemon?.detail?.types.some(({ type }) => type.name === selectedType.value) &&
+            pokemon.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+        )
+      : pokemonList.value;
   });
 
   async function getPokemonList() {

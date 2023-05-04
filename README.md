@@ -58,7 +58,7 @@ All components is stored in `src/components` and these components wrapped inside
 on the template, you only need to call the component name based on the one you just created
 
     <template>
-    	<my-component />
+      <my-component />
     </template>
 
 ### Api Config
@@ -71,10 +71,10 @@ Contain axios instance with the basic config, you can add more config here
 
     import axios from  'axios';
 
-    export  const clientApi = axios.create({
+    export const clientApi = axios.create({
       baseURL: 'https://pokeapi.co/api/v2',
       headers: {
-        'Content-Type':	'application/json'
+        'Content-Type': 'application/json'
       }
       // add more config here
     });
@@ -89,17 +89,17 @@ We use pinia for the state management. All our data state stored inside `src/sto
 
 ##### my-store.js
 
-    import { inject, ref } from  'vue';
-    import { defineStore } from  'pinia';
+    import { inject, ref } from 'vue';
+    import { defineStore } from 'pinia';
 
     export const useMyStore = defineStore('my-store', () => {
       const axios = inject('axios'); // inject axios if you need
       const items = ref([]);
 
       async  function  getItems() {
-        const { data } =  await axios.get('/items')
+        const { data } = await axios.get('/items')
 
-        items.value  = data.results
+        items.value = data.results
       }
 
       return {
@@ -114,4 +114,4 @@ We use pinia for the state management. All our data state stored inside `src/sto
 
 in your template just simple import like this
 
-    import { useMyStore } from  '@/stores';
+    import { useMyStore } from '@/stores';
