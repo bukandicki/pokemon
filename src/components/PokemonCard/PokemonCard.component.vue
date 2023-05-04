@@ -1,7 +1,6 @@
 <script setup>
 import { usePokemonStore } from '@/stores';
 import { computed, onMounted } from 'vue';
-import Label from '@/components/Label/Label.component.vue';
 
 const props = defineProps({ pokemon: Object });
 
@@ -54,9 +53,9 @@ onMounted(() => {
     class="border rounded-2xl p-4 transition-shadow hover:shadow-lg min-w-[250px] min-h-[150px] relative group"
   >
     <div class="flex space-x-2 mb-2">
-      <Label v-for="(item, index) in pokemon?.detail?.types" :key="index">
+      <jublia-label v-for="(item, index) in pokemon?.detail?.types" :key="index">
         {{ item.type.name }}
-      </Label>
+      </jublia-label>
     </div>
 
     <button

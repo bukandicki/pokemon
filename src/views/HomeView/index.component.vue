@@ -1,9 +1,10 @@
 <script setup>
 import { usePokemonStore } from '@/stores';
-import { onMounted, onUnmounted } from 'vue';
-import PokemonCard from '@/components/PokemonCard/PokemonCard.component.vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 const pokemonStore = usePokemonStore();
+
+const observer = ref(null);
 
 if (!pokemonStore.filteredPokemonList.length) pokemonStore.getPokemonList();
 
@@ -17,13 +18,14 @@ onMounted(() => {
   };
 
   const infiniteScrollElement = document.getElementById('infiniteScroll');
-  const observer = new IntersectionObserver(handleObserver);
+  observer.value = new IntersectionObserver(handleObserver);
 
-  observer.observe(infiniteScrollElement);
+  observer.value.observe(infiniteScrollElement);
 });
 
 onUnmounted(() => {
   pokemonStore.clearState();
+  observer.value.disconnect();
 });
 </script>
 
@@ -38,13 +40,8 @@ onUnmounted(() => {
       >
         <h2 class="text-3xl font-bold text-gray-900">Pokemon not found</h2>
       </div>
-      <ul class="grid 2xl:grid-cols-5 gap-4 mx-auto" v-else>
-        <li v-for="(pokemon, idx) in pokemonStore.filteredPokemonList" :key="idx">
-          <router-link :to="{ name: 'detail', params: { name: pokemon.name } }">
-            <PokemonCard :pokemon="pokemon" />
-          </router-link>
-        </li>
-      </ul>
+
+      <jublia-grid v-else :items="pokemonStore.filteredPokemonList" />
       <div id="infiniteScroll"></div>
     </section>
   </main>
