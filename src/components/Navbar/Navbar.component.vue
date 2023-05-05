@@ -44,7 +44,11 @@ onMounted(() => {
         <span class="font-semibold text-sky-400 ml-3"> Loading... </span>
       </div>
 
-      <ul class="flex space-x-3 items-center" v-else>
+      <ul
+        class="flex gap-3"
+        :class="{ 'flex-col md:flex-row md:items-center': showType || showSearch }"
+        v-else
+      >
         <template v-if="/(detail|favorite)/.test(route.name)">
           <li>
             <button @click="router.back()">
