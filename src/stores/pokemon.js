@@ -76,6 +76,22 @@ export const usePokemonStore = defineStore('pokemon', () => {
     favorites.value = currentFavorites ? JSON.parse(currentFavorites) : [];
   }
 
+  function addToFavorite(e, pokemonStore, pokemon) {
+    e.preventDefault();
+
+    getFavorites();
+
+    const isExist = pokemonStore.favorites.some(({ detail }) => detail.id === pokemon.detail.id);
+    const filteredFavorites = pokemonStore.favorites.filter(
+      ({ detail }) => detail.id !== pokemon.detail.id
+    );
+
+    if (isExist) pokemonStore.favorites = filteredFavorites;
+    else pokemonStore.favorites = [...pokemonStore.favorites, pokemon];
+
+    localStorage.setItem('favorites', JSON.stringify(pokemonStore.favorites));
+  }
+
   function selectType(type) {
     if (selectedType.value === type) selectedType.value = '';
     else selectedType.value = type;
@@ -103,6 +119,7 @@ export const usePokemonStore = defineStore('pokemon', () => {
     getTypeList,
     getPokemonDetail,
     getFavorites,
+    addToFavorite,
     selectType,
     clearState,
     clearDetail

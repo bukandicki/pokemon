@@ -1,7 +1,6 @@
 <script setup>
 import { usePokemonStore } from '@/stores';
 import { computed, onMounted } from 'vue';
-import { addToFavorite } from '@/lib/utils';
 
 const props = defineProps({ pokemon: Object });
 
@@ -43,7 +42,7 @@ onMounted(() => {
 
     <jublia-like
       :isActive="isFavorite"
-      @click="addToFavorite($event, pokemonStore, pokemon)"
+      @click="pokemonStore.addToFavorite($event, pokemonStore, pokemon)"
       class="absolute z-10 top-3 right-3"
     />
 
