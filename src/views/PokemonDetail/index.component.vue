@@ -2,7 +2,6 @@
 import { onUnmounted, ref, watchEffect, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { usePokemonStore } from '@/stores';
-import { addToFavorite } from '@/lib/utils';
 
 const route = useRoute();
 const pokemonStore = usePokemonStore();
@@ -70,7 +69,7 @@ onUnmounted(() => {
           :isActive="isFavorite"
           size="text-4xl"
           class="mt-4"
-          @click="addToFavorite($event, pokemonStore, { name: detail.name, detail })"
+          @click="pokemonStore.addToFavorite($event, pokemonStore, { name: detail.name, detail })"
         />
       </div>
     </section>
