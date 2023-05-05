@@ -24,9 +24,42 @@ onUnmounted(() => {
 <template>
   <main>
     <section>
-      <img class="h-96 mx-auto" :src="detail.sprites.front_default" :alt="detail.name" />
+      <div class="grid grid-cols-2 md:grid-flow-col w-fit mx-auto">
+        <figure v-if="detail.sprites.front_shiny_female && detail.sprites.back_shiny_female">
+          <img
+            class="h-40 md:h-52 mx-auto"
+            :src="detail.sprites.front_shiny_female"
+            :alt="detail.name"
+          />
+          <img
+            class="h-40 md:h-52 mx-auto"
+            :src="detail.sprites.back_shiny_female"
+            :alt="detail.name"
+          />
+          <figcaption class="text-center font-medium">Shiny Female</figcaption>
+        </figure>
+        <figure v-if="detail.sprites.front_female && detail.sprites.back_female">
+          <img class="h-40 md:h-52 mx-auto" :src="detail.sprites.front_female" :alt="detail.name" />
+          <img class="h-40 md:h-52 mx-auto" :src="detail.sprites.back_female" :alt="detail.name" />
+          <figcaption class="text-center font-medium">Female</figcaption>
+        </figure>
+        <figure v-if="detail.sprites.front_shiny && detail.sprites.back_shiny">
+          <img class="h-40 md:h-52 mx-auto" :src="detail.sprites.front_shiny" :alt="detail.name" />
+          <img class="h-40 md:h-52 mx-auto" :src="detail.sprites.back_shiny" :alt="detail.name" />
+          <figcaption class="text-center font-medium">Shiny Male</figcaption>
+        </figure>
+        <figure>
+          <img
+            class="h-40 md:h-52 mx-auto"
+            :src="detail.sprites.front_default"
+            :alt="detail.name"
+          />
+          <img class="h-40 md:h-52 mx-auto" :src="detail.sprites.back_default" :alt="detail.name" />
+          <figcaption class="text-center font-medium">Default</figcaption>
+        </figure>
+      </div>
       <div class="flex flex-col items-center">
-        <h1 class="text-center text-6xl capitalize font-bold m-4">{{ detail.name }}</h1>
+        <h1 class="text-center text-3xl md:text-6xl capitalize font-bold m-4">{{ detail.name }}</h1>
         <div class="flex space-x-2">
           <jublia-label class="w-fit" v-for="(type, idx) in detail.types" :key="idx">
             {{ type.type.name }}
