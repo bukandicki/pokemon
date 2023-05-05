@@ -33,7 +33,7 @@ onMounted(() => {
 </script>
 <template>
   <div
-    class="border rounded-2xl p-4 transition-shadow hover:shadow-lg min-w-[250px] min-h-[150px] relative group"
+    class="border rounded-2xl p-4 transition-shadow hover:shadow-lg min-w-[250px] min-h-[280px] relative group"
   >
     <div class="flex space-x-2 mb-2">
       <jublia-label v-for="(item, index) in pokemon?.detail?.types" :key="index">
